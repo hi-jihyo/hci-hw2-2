@@ -108,16 +108,16 @@ class Tree {
     create_window(id, pos_x, pos_y, width, height, title) {
         let new_window = this.create_node(id);
         new_window.type = "Window";
-        new_window.content_box = this._set_rectangle(pos_x, pos_y, width, height);
+        new_window.content_box = this._set_rectangle(pos_x, pos_y+20, width, height);
 
-        let title_width = width, title_height = 10;
-        let title_pos_x = pos_x, title_pos_y = pos_y - height/2 + title_height/2;
+        let title_width = width, title_height = 20;
+        let title_pos_x = pos_x, title_pos_y = pos_y;
         new_window.title_box = this._set_rectangle(title_pos_x, title_pos_y, title_width, title_height);
         new_window.title = title;
     
         new_window.style = {};
-        new_window.style.background = this._set_background_style("white");
-        new_window.style.border = this._set_line_style("black", "3px");
+        new_window.style.background = this._set_background_style("#cdcdcd");
+        new_window.style.border = this._set_line_style("#000000", "3px");
         new_window.style.font = this._set_font_style(10, "Arial");
 
         return new_window;
@@ -129,8 +129,8 @@ class Tree {
         new_button.text = text;
 
         new_button.style = {};
-        new_button.style.background = this._set_background_style("white");
-        new_button.style.border = this._set_line_style("black", "3px");
+        new_button.style.background = this._set_background_style("#cdcdcd");
+        new_button.style.border = this._set_line_style("#000000", "3px");
         new_button.style.font = this._set_font_style(10, "Arial");
 
         return new_button;
@@ -142,8 +142,8 @@ class Tree {
         new_textbox.text = text;
         
         new_textbox.style = {};
-        new_textbox.style.background = this._set_background_style("white");
-        new_textbox.style.border = this._set_line_style("black", "3px");
+        new_textbox.style.background = this._set_background_style("#cdcdcd");
+        new_textbox.style.border = this._set_line_style("#000000", "3px");
         new_textbox.style.font = this._set_font_style(10, "Arial");
 
         return new_textbox;
@@ -155,7 +155,7 @@ class Tree {
         new_label.text = text;
 
         new_label.style = {};
-        new_label.style.background = this._set_background_style("white");
+        new_label.style.background = this._set_background_style("#cdcdcd");
         new_label.style.font = this._set_font_style(10, "Arial");
 
         return new_label;
@@ -164,10 +164,11 @@ class Tree {
         let new_checkbox = this.create_node(id);
         new_checkbox.type = "Checkbox";
         new_checkbox.content_box = this._set_rectangle(pos_x, pos_y, width, height);
-
-        let inner_width = width * 2 / 3, inner_height = height * 2 / 3;
-        new_checkbox.inner_box = this._set_rectangle(pos_x, pos_y, inner_width, inner_height);
         new_checkbox.isChecked = false;
+
+        new_checkbox.style = {};
+        new_checkbox.style.background = this._set_background_style("#cdcdcd");
+        new_checkbox.style.border = this._set_line_style("#000000", "3px");
 
         return new_checkbox;
     }
@@ -369,3 +370,20 @@ class Tree {
         console.log((order+1) + "th element at layer " + layer + ": " + node.type + "(" + node.id +")");
     }
 }
+
+const Main = () => {
+    my_tree = Tree.create_tree();
+    my_node = my_tree.create_window("window-1", 10, 10, 500, 500, "My Window");
+    my_tree.set_root(my_node);
+    my_node = my_tree.create_button("button-1", 50, 50, 100, 30, "My Button");
+    my_tree.add_node(my_tree.root, my_node);
+    my_node = my_tree.create_textbox("textbox-1", 100, 100, 200, 200, "My Textbox");
+    my_tree.add_node(my_tree.root, my_node);
+    my_node = my_tree.create_label("label-1", 80, 400, 150, 30, "My Label");
+    my_tree.set_background_color(my_node, "#345678");
+    my_tree.add_node(my_tree.root, my_node);
+    my_node = my_tree.create_checkbox("checkbox-1", 400, 400, 20, 20);
+    my_node.isChecked = true;
+    my_tree.add_node(my_tree.root, my_node);
+}
+Main();
