@@ -1,3 +1,6 @@
+/**
+ * class Tree, which was for homework 2-1. (but edited)
+ */
 class Tree {
     // constructor of tree
     constructor () {
@@ -54,6 +57,7 @@ class Tree {
     }
     _set_rectangle(pos_x, pos_y, width, height) {
         if (typeof width !== 'number' || width <= 0) {
+            console.log(typeof width + width);
             console.error("[ERROR] invalid parameter: 'width' sholud be a positive number");
         }
         if (typeof height !== 'number' || height <= 0) {
@@ -66,19 +70,10 @@ class Tree {
             height : height,
         };
     }
-    _set_circle(pos_x, pos_y, radius) {
-        if (typeof radius !== 'number' || radius <= 0) {
-            console.error("[ERROR] invalid parameter: 'radius' sholud be a positive number");
-        }
-
-        return {
-            position : this._set_point(pos_x, pos_y),
-            radius : radius,
-        };
-    }
     // 2. for style, such as font color, line weight, etc.
-    _set_font_style(size, family) {
+    _set_font_style(color, size, family) {
         return {
+            color : color,
             size : size,
             family : family,
         };
@@ -126,9 +121,9 @@ class Tree {
         new_window.title = title;
     
         new_window.style = {};
-        new_window.style.background = this._set_background_style("#cdcdcd");
-        new_window.style.border = this._set_line_style("#000000", "3px");
-        new_window.style.font = this._set_font_style(10, "Arial");
+        new_window.style.background = this._set_background_style("#eaeaea");
+        new_window.style.border = this._set_line_style("#202020", 5);
+        new_window.style.font = this._set_font_style("#000000", 20, "Arial");
 
         return new_window;
     }
@@ -153,8 +148,8 @@ class Tree {
 
         new_button.style = {};
         new_button.style.background = this._set_background_style("#cdcdcd");
-        new_button.style.border = this._set_line_style("#000000", "3px");
-        new_button.style.font = this._set_font_style(10, "Arial");
+        new_button.style.border = this._set_line_style("#202020", 3);
+        new_button.style.font = this._set_font_style("#000000", 15, "Arial");
 
         return new_button;
     }
@@ -179,8 +174,8 @@ class Tree {
         
         new_textbox.style = {};
         new_textbox.style.background = this._set_background_style("#cdcdcd");
-        new_textbox.style.border = this._set_line_style("#000000", "3px");
-        new_textbox.style.font = this._set_font_style(10, "Arial");
+        new_textbox.style.border = this._set_line_style("#202020", 3);
+        new_textbox.style.font = this._set_font_style("#000000", 15, "Arial");
 
         return new_textbox;
     }
@@ -205,7 +200,7 @@ class Tree {
 
         new_label.style = {};
         new_label.style.background = this._set_background_style("#cdcdcd");
-        new_label.style.font = this._set_font_style(10, "Arial");
+        new_label.style.font = this._set_font_style("#000000", 15, "Arial");
 
         return new_label;
     }
@@ -216,7 +211,6 @@ class Tree {
      * @param {number} pos_y 
      * @param {number} width 
      * @param {number} height 
-     * @param {string} text
      * @param {number} [radius]
      * @returns {object} checkbox node
      */
@@ -224,18 +218,26 @@ class Tree {
         let new_checkbox = this.create_node(id);
         new_checkbox.type = "Checkbox";
         new_checkbox.content_box = this._set_rectangle(pos_x, pos_y, width, height);
-        if (arguments.length > 6)
-            new_checkbox.content_box.radius = arguments[6];
+        if (arguments.length > 5)
+            new_checkbox.content_box.radius = arguments[5];
         new_checkbox.isChecked = false;
 
         new_checkbox.style = {};
         new_checkbox.style.background = this._set_background_style("#cdcdcd");
-        new_checkbox.style.border = this._set_line_style("#000000", "3px");
+        new_checkbox.style.border = this._set_line_style("#202020", 3);
+        new_checkbox.style.font = this._set_font_style("#000000", 15, "Arial");
 
         return new_checkbox;
     }
 
     // methods for setting or editing style of a node
+    set_font_color(node, color) {
+        if (node.type === "Node" || node.type === "Checkbox") {
+            console.error("[ERROR] type '" + node.type + "' doesn't have a font size property");
+            return;
+        }
+        node.style.font.color = color;
+    }
     set_font_size(node, size) {
         if (node.type === "Node" || node.type === "Checkbox") {
             console.error("[ERROR] type '" + node.type + "' doesn't have a font size property");
