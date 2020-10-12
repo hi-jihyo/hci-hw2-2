@@ -1,4 +1,11 @@
 class TreeParser {
+    static init() {
+        let canvas = document.getElementById('my-canvas');
+        if (!canvas.getContext) {
+            alert("Your browser doesn't support canvas!");
+        }
+        let context = canvas.getContext('2d');
+    }
     static render_tree(tree) {
         let canvas = document.getElementById('my-canvas');
         let context = canvas.getContext('2d');

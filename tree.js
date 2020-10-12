@@ -105,6 +105,16 @@ class Tree {
         };
         return new_node;
     }
+    /**
+     * creates a window node and returns it
+     * @param {string} id 
+     * @param {number} pos_x 
+     * @param {number} pos_y 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {string} title
+     * @returns {object} window node
+     */
     create_window(id, pos_x, pos_y, width, height, title) {
         let new_window = this.create_node(id);
         new_window.type = "Window";
@@ -122,10 +132,23 @@ class Tree {
 
         return new_window;
     }
+    /**
+     * create a button node and returns it
+     * @param {string} id 
+     * @param {number} pos_x 
+     * @param {number} pos_y 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {string} text
+     * @param {number} [radius]
+     * @returns {object} button node
+     */
     create_button(id, pos_x, pos_y, width, height, text) {
         let new_button = this.create_node(id);
         new_button.type = "Button";
         new_button.content_box = this._set_rectangle(pos_x, pos_y, width, height);
+        if (arguments.length > 6)
+            new_button.content_box.radius = arguments[6];
         new_button.text = text;
 
         new_button.style = {};
@@ -135,10 +158,23 @@ class Tree {
 
         return new_button;
     }
+    /**
+     * create a textbox node and returns it
+     * @param {string} id 
+     * @param {number} pos_x 
+     * @param {number} pos_y 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {string} text
+     * @param {number} [radius]
+     * @returns {object} textbox node
+     */
     create_textbox(id, pos_x, pos_y, width, height, text) {
         let new_textbox = this.create_node(id);
         new_textbox.type = "Textbox";
         new_textbox.content_box = this._set_rectangle(pos_x, pos_y, width, height);
+        if (arguments.length > 6)
+            new_textbox.content_box.radius = arguments[6];
         new_textbox.text = text;
         
         new_textbox.style = {};
@@ -148,10 +184,23 @@ class Tree {
 
         return new_textbox;
     }
+    /**
+     * create a label node and returns it
+     * @param {string} id 
+     * @param {number} pos_x 
+     * @param {number} pos_y 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {string} text
+     * @param {number} [radius]
+     * @returns {object} label node
+     */
     create_label(id, pos_x, pos_y, width, height, text) {
         let new_label = this.create_node(id);
         new_label.type = "Label";
         new_label.content_box = this._set_rectangle(pos_x, pos_y, width, height);
+        if (arguments.length > 6)
+            new_label.content_box.radius = arguments[6];
         new_label.text = text;
 
         new_label.style = {};
@@ -160,10 +209,23 @@ class Tree {
 
         return new_label;
     }
+    /**
+     * create a checkbox node and returns it
+     * @param {string} id 
+     * @param {number} pos_x 
+     * @param {number} pos_y 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {string} text
+     * @param {number} [radius]
+     * @returns {object} checkbox node
+     */
     create_checkbox(id, pos_x, pos_y, width, height) {
         let new_checkbox = this.create_node(id);
         new_checkbox.type = "Checkbox";
         new_checkbox.content_box = this._set_rectangle(pos_x, pos_y, width, height);
+        if (arguments.length > 6)
+            new_checkbox.content_box.radius = arguments[6];
         new_checkbox.isChecked = false;
 
         new_checkbox.style = {};
@@ -370,20 +432,3 @@ class Tree {
         console.log((order+1) + "th element at layer " + layer + ": " + node.type + "(" + node.id +")");
     }
 }
-
-const Main = () => {
-    my_tree = Tree.create_tree();
-    my_node = my_tree.create_window("window-1", 10, 10, 500, 500, "My Window");
-    my_tree.set_root(my_node);
-    my_node = my_tree.create_button("button-1", 50, 50, 100, 30, "My Button");
-    my_tree.add_node(my_tree.root, my_node);
-    my_node = my_tree.create_textbox("textbox-1", 100, 100, 200, 200, "My Textbox");
-    my_tree.add_node(my_tree.root, my_node);
-    my_node = my_tree.create_label("label-1", 80, 400, 150, 30, "My Label");
-    my_tree.set_background_color(my_node, "#345678");
-    my_tree.add_node(my_tree.root, my_node);
-    my_node = my_tree.create_checkbox("checkbox-1", 400, 400, 20, 20);
-    my_node.isChecked = true;
-    my_tree.add_node(my_tree.root, my_node);
-}
-Main();
